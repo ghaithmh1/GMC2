@@ -1,1 +1,50 @@
-ddcdc
+-- Création de la table Customer
+CREATE TABLE Customer (
+    customer_id    VARCHAR2(20) NOT NULL,
+    customer_Name  VARCHAR2(20) NOT NULL,
+    customer_Tel   NUMBER(8),
+    CONSTRAINT PK_customer PRIMARY KEY (customer_id)
+);
+
+-- Création de la table Product
+CREATE TABLE Product (
+    product_id    VARCHAR2(20) NOT NULL,
+    product_Name  VARCHAR2(20) NOT NULL,
+    price         NUMBER CHECK (price > 0) ,
+    CONSTRAINT PK_product PRIMARY KEY (product_id)
+);
+
+-- Création de la table Orders
+CREATE TABLE Orders (
+    order_id      NUMBER(10) NOT NULL,
+    customer_id   VARCHAR2(20) NOT NULL,
+    product_id    VARCHAR2(20) NOT NULL,
+    quantity      NUMBER,
+    Total_amount  NUMBER,
+    CONSTRAINT PK_orders PRIMARY KEY (order_id),
+    CONSTRAINT FK_orders_customer FOREIGN KEY (customer_id) REFERENCES Customer (customer_id),
+    CONSTRAINT FK_orders_product FOREIGN KEY (product_id) REFERENCES Product (product_id)
+);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--Ajout de la colonne Catégorie 
+ALTER TABLE Product
+ADD Catégorie VARCHAR2(20);
+
+--Ajout de la colonne Date_de_commande
+ALTER TABLE Orders
+ADD Date_de_commande DATE DEFAULT SYSDATE;
+
+
